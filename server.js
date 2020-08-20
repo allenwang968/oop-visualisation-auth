@@ -15,8 +15,6 @@ const app = express()
 var port = process.env.PORT || 3000
 
 app.set('view-engine', 'ejs')
-app.engine('html', require('ejs').renderFile);
-app.set('view-engine', 'html')
 
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
@@ -41,7 +39,7 @@ app.get('/', (req, res) => {
         // } else {
         //     res.render('survey.ejs')
         // }  
-        res.render('index.html')
+        res.redirect('https://webgl-build-oop-visualisation.herokuapp.com/')
     }
 })
 
