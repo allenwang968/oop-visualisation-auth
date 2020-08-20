@@ -39,8 +39,7 @@ passport.use(
                 
             })
         } else {
-            //done(new Error('Invalid host domain'))
-            console.log('err')
+            done(null, {error: 'No'})
         }      
     })
 )
