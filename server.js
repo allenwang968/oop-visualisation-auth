@@ -1,0 +1,42 @@
+const express = require('express')
+const authRoutes = require('./routes/auth')
+const passportSetup = require('./config/passport-setup')
+const mongoose = require('mongoose')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
+
+var dotenv = require('dotenv')
+dotenv.config()
+
+const app = express()
+
+app.set('view-engine', 'ejs')
+
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY]
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, () => {
+    console.log('connected to mongodb')
+})
+
+app.use('/auth', authRoutes)
+
+app.get('/', (req, res) => {
+    if (!req.user) {
+        res.render('index.ejs')
+    } else {
+        // if (req.user.surveyCompleted) {
+        //     res.render('home.ejs')
+        // } else {
+        //     res.render('survey.ejs')
+        // }  
+        res.redirect('http://localhost:5000')
+    }
+})
+
+app.listen(3000)
