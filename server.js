@@ -4,6 +4,7 @@ const passportSetup = require('./config/passport-setup')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
+const { render } = require('ejs')
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
@@ -14,6 +15,8 @@ const app = express()
 var port = process.env.PORT || 3000
 
 app.set('view-engine', 'ejs')
+app.engine('html', require('ejs').renderFile);
+app.set('view-engine', 'html')
 
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
@@ -38,7 +41,7 @@ app.get('/', (req, res) => {
         // } else {
         //     res.render('survey.ejs')
         // }  
-        res.redirect('http://localhost:5000')
+        res.render('index.html')
     }
 })
 
