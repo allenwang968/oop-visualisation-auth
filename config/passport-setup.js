@@ -39,7 +39,7 @@ passport.use(
                 
             })
         } else {
-            done(null, {error: 'No'})
+            return done(null, false, { message: 'Not allow access!' });
         }      
     })
 )
