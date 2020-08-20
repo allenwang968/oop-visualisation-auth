@@ -2,7 +2,9 @@ const passport = require('passport')
 const GoogleStrat = require('passport-google-oauth20')
 const User = require('../models/User')
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 
 passport.serializeUser((user, done) => {
     done(null, user.id)
