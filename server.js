@@ -10,6 +10,8 @@ dotenv.config()
 
 const app = express()
 
+var port = process.env.PORT || 3000
+
 app.set('view-engine', 'ejs')
 
 app.use(cookieSession({
@@ -39,4 +41,6 @@ app.get('/', (req, res) => {
     }
 })
 
-app.listen(3000)
+app.listen(port, function() {
+    console.log('running on: ' + port)
+})
