@@ -39,7 +39,7 @@ passport.use(
                 
             })
         } else {
-            return done(null, false, req.flash('message', 'User does not exist' ))
+            return done(null, false, { message: 'Not allow access!' });
         }      
     })
 )
