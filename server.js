@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
         // } else {
         //     res.render('survey.ejs')
         // }  
-        res.redirect('https://webgl-build-oop-visualisation.herokuapp.com/')
+        res.redirect('https://oop-visualisation-webgl.herokuapp.com/')
     }
 })
 
