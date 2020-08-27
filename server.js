@@ -35,6 +35,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, () => {
 app.use('/auth', authRoutes)
 
 app.use('/stats', statsRoutes)
+app.use(express.static('public'));
 
 var token = ''
 
