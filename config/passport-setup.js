@@ -1,7 +1,9 @@
 const passport = require('passport')
 const GoogleStrat = require('passport-google-oauth20')
 const User = require('../models/User')
-const UserStat = require('../models/UserStat')
+const UserConfig = require('../models/UserConfig')
+const Question = require('../models/Question')
+const Attempt = require('../models/Attempt')
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
@@ -28,9 +30,9 @@ passport.use(
                 if (user) {
                     console.log('returning user')
                     done(null, user)
-                } else {
-                    new UserStat({
-                        googleId: profile.id
+                } else {                    
+                    new UserConfig({
+                        userId: profile.id
                     }).save()
                     new User({
                         email: profile._json.email,

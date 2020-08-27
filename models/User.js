@@ -8,9 +8,21 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    activitiesCompleted: {
+    section1Completed: {
         type: Boolean,
         default: false
+    },
+    section2Completed: {
+        type: Boolean,
+        default: false
+    },
+    section3Completed: {
+        type: Boolean,
+        default: false
+    },
+    questionsCompleted: {
+        type: Number,
+        default: 0
     }
 })
 
