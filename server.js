@@ -1,5 +1,6 @@
 const express = require('express')
 const authRoutes = require('./routes/auth')
+const statsRoutes = require('./routes/stats')
 const passportSetup = require('./config/passport-setup')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
@@ -30,6 +31,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, () => {
 
 app.use('/auth', authRoutes)
 
+app.use('/stats', statsRoutes)
+
 app.get('/', (req, res) => {
     if (!req.user) {
         res.render('index.ejs')
@@ -38,9 +41,13 @@ app.get('/', (req, res) => {
         //     res.render('home.ejs')
         // } else {
         //     res.render('survey.ejs')
-        // }  
+        // } 
         res.redirect('https://oop-visualisation-webgl.herokuapp.com/')
     }
+})
+
+app.get('/token', (req, res) => {
+    res.send(token)
 })
 
 app.listen(port, function() {
