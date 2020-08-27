@@ -5,6 +5,7 @@ const passportSetup = require('./config/passport-setup')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
+const cors = require('cors')
 const { render } = require('ejs')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -24,6 +25,8 @@ app.use(cookieSession({
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use(cors())
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, () => {
     console.log('connected to mongodb')
