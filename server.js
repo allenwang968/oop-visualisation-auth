@@ -33,6 +33,8 @@ app.use('/auth', authRoutes)
 
 app.use('/stats', statsRoutes)
 
+var token = ''
+
 app.get('/', (req, res) => {
     if (!req.user) {
         res.render('index.ejs')
@@ -42,11 +44,13 @@ app.get('/', (req, res) => {
         // } else {
         //     res.render('survey.ejs')
         // } 
+        token = req.user.googleId
         res.redirect('https://oop-visualisation-webgl.herokuapp.com/')
     }
 })
 
 app.get('/token', (req, res) => {
+    console.log(token)
     res.send(token)
 })
 
