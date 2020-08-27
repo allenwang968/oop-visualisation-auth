@@ -4,7 +4,11 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     email: String,
     googleId: String,
-    surveyCompleted: {
+    surveyStartCompleted: {
+        type: Boolean,
+        default: false
+    },
+    surveyEndCompleted: {
         type: Boolean,
         default: false
     },

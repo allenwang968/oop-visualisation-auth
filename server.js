@@ -1,12 +1,15 @@
 const express = require('express')
 const authRoutes = require('./routes/auth')
 const statsRoutes = require('./routes/stats')
+const surveyRoutes = require('./routes/survey')
 const passportSetup = require('./config/passport-setup')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 const cors = require('cors')
 const { render } = require('ejs')
+
+const User = require('./models/User')
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
@@ -35,6 +38,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, () => {
 app.use('/auth', authRoutes)
 
 app.use('/stats', statsRoutes)
+
+app.use('/survey', surveyRoutes)
+
 app.use(express.static('public'));
 
 var token = ''
@@ -43,13 +49,12 @@ app.get('/', (req, res) => {
     if (!req.user) {
         res.render('index.ejs')
     } else {
-        // if (req.user.surveyCompleted) {
-        //     res.render('home.ejs')
-        // } else {
-        //     res.render('survey.ejs')
-        // } 
         token = req.user.googleId
-        res.redirect('https://oop-visualisation-webgl.herokuapp.com/')
+        if (req.user.surveyStartCompleted) {
+            res.redirect('https://oop-visualisation-webgl.herokuapp.com/')
+        } else {
+            res.redirect('https://forms.gle/JniTrJUbn37GjBcL9')
+        } 
     }
 })
 

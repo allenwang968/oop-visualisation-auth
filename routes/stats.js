@@ -70,7 +70,7 @@ router.post('/question', (req, res) => {
     res.send(200)
 })
 
-router.put('/complete', (req, res) => {
+router.post('/complete', (req, res) => {
     if (req.user) {
         var id = req.user.googleId
     } else if (req.query.token) {
@@ -90,7 +90,7 @@ router.put('/complete', (req, res) => {
             }
         })
     } else if (req.body.section === '3') {
-        User.updateOne({ googleId: id }, { sectionCompleted: true }, function (err, docs) {
+        User.updateOne({ googleId: id }, { section3Completed: true }, function (err, docs) {
             if (err) {
                 console.log(err)
             }

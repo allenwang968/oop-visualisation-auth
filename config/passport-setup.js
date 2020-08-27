@@ -31,9 +31,6 @@ passport.use(
                     console.log('returning user')
                     done(null, user)
                 } else {                    
-                    new UserConfig({
-                        userId: profile.id
-                    }).save()
                     new User({
                         email: profile._json.email,
                         googleId: profile.id
