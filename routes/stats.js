@@ -50,33 +50,47 @@ router.post('/question', (req, res) => {
         id = req.query.token
     }
 
-    var questionNumber = 0
-    
-    User.findOne({googleId: id}).then((user) => {
-        if (user) {
-            console.log('yues')
-        } else { 
-            console.log(';bnio')
-        }
-        questionNumber = user.questionsCompleted
-    })
-
     new Question({
         userId: id,
         section: req.body.section,
         questionId: req.body.questionId,
         timeTaken: req.body.timeTaken,
-        overQuestionNumber: questionNumber
     }).save()
 
     User.updateOne({ googleId: id }, { $inc: { questionsCompleted: 1 }}, function (err, docs) {
         if (err) {
             console.log(err)
-        } else {
-            console.log(docs)
         }
     })
 
+})
+
+router.put('/complete', (req, res) => {
+    if (req.user) {
+        var id = req.user.googleId
+    } else if (req.query.token) {
+        id = req.query.token
+    }
+
+    if (req.body.section === '1') {
+        User.updateOne({ googleId: id }, { section1Completed: true }, function (err, docs) {
+            if (err) {
+                console.log(err)
+            }
+        })
+    } else if (req.body.section === '2') {
+        User.updateOne({ googleId: id }, { section2Completed: true }, function (err, docs) {
+            if (err) {
+                console.log(err)
+            }
+        })
+    } else if (req.body.section === '3') {
+        User.updateOne({ googleId: id }, { section3Completed: true }, function (err, docs) {
+            if (err) {
+                console.log(err)
+            }
+        })
+    }
 })
 
 router.get('/sections-completed', (req, res) => {

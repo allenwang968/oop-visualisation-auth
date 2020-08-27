@@ -6,7 +6,6 @@ const questionSchema = new Schema({
     section: String,
     questionId: String,
     timeTaken: String,
-    overallQuestionNumber: Number
 })
 
 const Question = mongoose.model('question', questionSchema)
