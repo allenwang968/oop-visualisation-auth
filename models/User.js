@@ -8,10 +8,6 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    surveyEndCompleted: {
-        type: Boolean,
-        default: false
-    },
     section1Completed: {
         type: Boolean,
         default: false

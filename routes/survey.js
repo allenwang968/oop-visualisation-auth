@@ -7,16 +7,7 @@ router.get('/start', (req, res) => {
             console.log(err)
         }
     })
-    res.redirect('http://localhost:3000/')
-})
-
-router.get('/end', (req, res) => {
-    User.updateOne({ googleId: req.user.id }, { surveyEndCompleted: true }, function (err, docs) {
-        if (err) {
-            console.log(err)
-        }
-    })
-    res.redirect('http://localhost:3000/')
+    res.redirect('https://oop-visualisation.herokuapp.com/')
 })
 
 module.exports = router;
