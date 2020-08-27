@@ -25,6 +25,8 @@ router.post('/config', (req, res) => {
         theme: req.body.theme,
         language: req.body.language
     }).save()
+
+    res.send(200)
 })
 
 router.post('/attempt', (req, res) => {
@@ -41,6 +43,8 @@ router.post('/attempt', (req, res) => {
         userAnswer: req.body.userAnswer,
         correctAnswer: req.body.correctAnswer
     }).save()
+
+    res.send(200)
 })
 
 router.post('/question', (req, res) => {
@@ -63,6 +67,7 @@ router.post('/question', (req, res) => {
         }
     })
 
+    res.send(200)
 })
 
 router.put('/complete', (req, res) => {
@@ -85,12 +90,14 @@ router.put('/complete', (req, res) => {
             }
         })
     } else if (req.body.section === '3') {
-        User.updateOne({ googleId: id }, { section3Completed: true }, function (err, docs) {
+        User.updateOne({ googleId: id }, { sectionCompleted: true }, function (err, docs) {
             if (err) {
                 console.log(err)
             }
         })
     }
+
+    res.send(200)
 })
 
 router.get('/sections-completed', (req, res) => {
@@ -103,13 +110,13 @@ router.get('/sections-completed', (req, res) => {
     User.findOne({googleId: id}).then((user) => {
         if (user) {
             if (user.section3Completed) {
-                res.send('3')
+                res.status(200).send('3')
             } else if (user.section2Completed) {
-                res.send('2')
+                res.status(200).send('2')
             } else if (user.section1Completed) {
-                res.send('1')
+                res.status(200).send('1')
             } else {
-                res.send('0')
+                res.status(200).send('0')
             }
         } else {
             console.log('user not found')
